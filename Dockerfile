@@ -5,11 +5,23 @@ FROM amd64/golang:1.21.6-bullseye
 RUN apt-get update && \
     apt-get install -y unixodbc unixodbc-dev dpkg-dev
 
+
+
+
 # Set the working directory in the container
 WORKDIR /app
 
 
+
 COPY . .
+COPY ./obdc.ini /usr/local/etc/odbc.ini
+
+ENV ODBCINI=/usr/local/etc/odbc.ini
+ENV ODBCSYSINI=/usr/local/etc
+
+RUN dpkg -i /app/mysql-community-client-plugins_8.3.0-1debian11_amd64.deb
+
+RUN dpkg -i /app/mysql-connector-odbc_8.3.0-1debian11_amd64.deb
 
 # Download go pkg
 RUN go mod vendor
@@ -19,6 +31,8 @@ RUN go build -o myapp .
 
 # Make the wait-for script executable
 RUN chmod +x ./wait-for.sh
+
+
 
 # Expose port 8080 to the outside world
 EXPOSE 3000

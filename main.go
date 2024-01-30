@@ -37,7 +37,7 @@ func main() {
 
 	r.GET("/test-connect-odbc", func(c *gin.Context) {
 		db, err := sql.Open("odbc",
-			"DSN=CData Access Source")
+			"DSN=myodbc8w")
 		if err != nil {
 			log.Fatal(err)
 		}
