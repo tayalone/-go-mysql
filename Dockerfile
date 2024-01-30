@@ -1,9 +1,9 @@
 # Use the official Golang image
-FROM golang:1.21.6-bullseye
+FROM amd64/golang:1.21.6-bullseye
 
 # Install ODBC packages
 RUN apt-get update && \
-    apt-get install -y unixodbc unixodbc-dev
+    apt-get install -y unixodbc unixodbc-dev dpkg-dev
 
 # Set the working directory in the container
 WORKDIR /app

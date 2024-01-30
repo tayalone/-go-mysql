@@ -20,6 +20,7 @@ services:
       - "3000:3000"
     depends_on:
       - mysql
+    platform: "linux/arm64/v8"
     environment:
       DB_HOST: mysql
       DB_PORT: 3306
